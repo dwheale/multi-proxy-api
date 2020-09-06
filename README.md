@@ -2,8 +2,51 @@
 
 A private-use proxy with the following end-points:
 
+### Cors Proxy
+
+Setup to be a cors proxy to deliver html in a JSON response. This is not designed to be used in a browser.
+
+* **URL**
+    
+    /api/v1/cors-proxy
+    
+* **Method:**
+    
+    ```GET```
+    
+* **Headers:**
+    
+    `x-api-key=[api-key]`
+    
+*  **URL Params**
+
+   **Required:**
+   
+   `url=[url]`
+   
+* **Data Params**
+
+    None
+    
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{ "url": "https://google.com", "html": "[html for google.com]" }`
+      
+* **Error Response:**
+
+    * **Code:** 429 Too Many Requests<br />
+      **CONTENT:** `{ error : "Too many requests, please try again later."`
+    
+    OR
+    
+    * **Code:** 401 Unauthorized<br />
+      **CONTENT:** `{ message : "Invalid API Key"`
+
 ### Mars Weather
+
 Displays the current weather on Mars. This response is cached in memory every 10 minutes
+
 * **URL**
     
     /api/v1/mars-weather
@@ -11,6 +54,10 @@ Displays the current weather on Mars. This response is cached in memory every 10
 * **Method:**
     
     ```GET```
+    
+* **Headers:**
+
+    `x-api-key=[api-key]`
     
 *  **URL Params**
 
@@ -32,8 +79,10 @@ Displays the current weather on Mars. This response is cached in memory every 10
     
     OR
     
-    * **Code:** 40 Unauthorized<br />
+    * **Code:** 401 Unauthorized<br />
       **CONTENT:** `{ message : "Invalid API Key"`
+      
+### Proxy Features / Utilities
     
 The proxy has the following features:
 * Optional API key requirement
