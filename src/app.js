@@ -26,7 +26,7 @@ const apiv1 = require('./api')
 const app = express()
 app.set('trust proxy', 1)
 
-app.use(morgan('dev'))
+app.use(morgan('common'))
 app.use(helmet())
 app.use(cors())
 app.use(express.json())

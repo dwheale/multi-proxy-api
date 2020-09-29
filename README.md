@@ -2,6 +2,59 @@
 
 A private-use proxy with the following end-points:
 
+### Contact David
+
+Setup to consume the SendGrid api for the sole purpose of emailing me.<br />
+This endpoint allows for sending data through the body or as a url param, but not both.
+
+* **URL**
+
+    /api/v1/contact-david
+    
+* **METHOD:**
+
+    ```POST```
+    
+* **Headers:**
+
+    `x-api-key=[api-key]`
+    
+* **URL Params**
+
+    **Optional:**
+    
+    `message=[message to be sent]`<br />
+    `email=[sender's email]` will be added to the reply_to header<br />
+    `*other=[any other message data]` will be added to the message body
+    
+    **Data Params**
+    
+    **Optional:**
+    
+    `message=[message to be sent]`<br />
+    `email=[sender's email]` will be added to the reply_to header<br />
+    `*other=[any other message data]` will be added to the message body
+    
+* **Success Response:**
+
+    * **Code:** 202 Accepted <br />
+      **Content:** `{ "statusCode": 202, "headers": "{...}" }`
+      
+* **Error Response:**
+    
+    * **Code:** 422 Unprocessable Entity <br />
+      **CONTENT:** `{ error : "Do not include both a body and query." }`
+    
+    OR
+
+    * **Code:** 429 Too Many Requests<br />
+      **CONTENT:** `{ error : "Too many requests, please try again later." }`
+    
+    OR
+    
+    * **Code:** 401 Unauthorized<br />
+      **CONTENT:** `{ message : "Invalid API Key" }`
+
 ### Cors Proxy
 
 Setup to be a cors proxy to deliver html in a JSON response. This is not designed to be used in a browser.
@@ -18,7 +71,7 @@ Setup to be a cors proxy to deliver html in a JSON response. This is not designe
     
     `x-api-key=[api-key]`
     
-*  **URL Params**
+*  **URL Params:**
 
    **Required:**
    
@@ -101,16 +154,24 @@ The proxy has the following features:
 
 Includes API Server utilities:
 
+* [express](https://www.npmjs.com/package/express)
+    * Fast, unopinionated, minimalist web framework for node.
 * [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
+  * HTTP request logger middleware for node.js.
 * [helmet](https://www.npmjs.com/package/helmet)
   * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
 * [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
+  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
 * [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
    * Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 * [express-slow-down](https://www.npmjs.com/package/express-slow-down)
     * Basic rate-limiting middleware for Express that slows down responses rather than blocking them outright. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
+* [axios](https://www.npmjs.com/package/axios)
+    * Promise based HTTP client for the browser and node.js.
+* [cors](https://www.npmjs.com/package/cors)
+    * CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+* [sendGrid](https://www.npmjs.com/package/@sendgrid/mail)
+    * This is a dedicated service for interaction with the mail endpoint of the SendGrid v3 API
 
 Development utilities:
 
